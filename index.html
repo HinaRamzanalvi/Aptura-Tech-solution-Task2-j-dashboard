@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>InsightHub | Interactive Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>IH</span>
+            <h2>InsightHub</h2>
+        </div>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">
+                <span>▣</span>
+                Dashboard
+            </a>
+
+            <a href="#analytics" class="nav-link">
+                <span>◉</span>
+                Analytics
+            </a>
+
+            <a href="#settings" class="nav-link">
+                <span>⚙</span>
+                Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>Interactive Dashboard</p>
+            <small>Design by Hina Alvi</small>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div>
+                <p class="welcome">Welcome back 👋</p>
+                <h1>Dashboard Overview</h1>
+            </div>
+
+            <div class="top-actions">
+
+                <button id="themeToggle" class="icon-btn" title="Toggle Theme">
+                    🌙
+                </button>
+
+                <div class="profile">
+                    <div class="avatar">HA</div>
+
+                    <div>
+                        <strong>Hina Alvi</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Loading -->
+        <div id="loading" class="state-message">
+            Loading dashboard data...
+        </div>
+
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="dashboard hidden">
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+
+                    <div>
+                        <p>Total Users</p>
+                        <h2 id="totalUsers">0</h2>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+
+                    <div>
+                        <p>Active Users</p>
+                        <h2 id="activeUsers">0</h2>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">○</div>
+
+                    <div>
+                        <p>Inactive Users</p>
+                        <h2 id="inactiveUsers">0</h2>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon">▦</div>
+
+                    <div>
+                        <p>Departments</p>
+                        <h2 id="totalDepartments">0</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Analytics -->
+            <div id="analytics" class="charts-container">
+
+                <div class="chart-card">
+                    <h3>Active vs Inactive Users</h3>
+
+                    <div class="chart-wrapper">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="chart-card">
+                    <h3>Users by Department</h3>
+
+                    <div class="chart-wrapper">
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Team Members -->
+            <section class="data-section">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Team Members</h2>
+
+                        <p>
+                            Search, filter and manage team data
+                        </p>
+                    </div>
+
+
+                    <div class="header-buttons">
+
+                        <button id="exportBtn" class="secondary-btn">
+                            📥 Export CSV
+                        </button>
+
+                        <button id="addUserBtn" class="primary-btn">
+                            + Add User
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Controls -->
+                <div class="controls">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search by name, email or role..."
+                        >
+                    </div>
+
+
+                    <select id="departmentFilter">
+
+                        <option value="all">
+                            All Departments
+                        </option>
+
+                    </select>
+
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+
+                    <select id="sortSelect">
+
+                        <option value="default">
+                            Sort By
+                        </option>
+
+                        <option value="name-asc">
+                            Name A → Z
+                        </option>
+
+                        <option value="name-desc">
+                            Name Z → A
+                        </option>
+
+                        <option value="date-new">
+                            Newest First
+                        </option>
+
+                        <option value="date-old">
+                            Oldest First
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Table -->
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="userTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state hidden">
+
+                    <div>🔍</div>
+
+                    <h3>No results found</h3>
+
+                    <p>
+                        Try changing your search or filter.
+                    </p>
+
+                </div>
+
+
+                <!-- Pagination -->
+                <div class="pagination">
+
+                    <button id="prevPage">
+                        ← Previous
+                    </button>
+
+                    <span id="pageInfo">
+                        Page 1
+                    </span>
+
+                    <button id="nextPage">
+                        Next →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Settings -->
+            <section id="settings" class="settings-section">
+
+                <h2>Dashboard Settings</h2>
+
+                <div class="settings-card">
+
+                    <div>
+                        <strong>Dark Mode</strong>
+
+                        <p>
+                            Change dashboard appearance
+                        </p>
+                    </div>
+
+                    <button id="settingsThemeBtn" class="primary-btn">
+                        Toggle Theme
+                    </button>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- Error -->
+        <div id="errorState" class="state-message error hidden">
+
+            <h2>
+                ⚠ Something went wrong
+            </h2>
+
+            <p>
+                We couldn't load the dashboard data.
+            </p>
+
+            <button id="retryBtn" class="primary-btn">
+                Try Again
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- Add/Edit User Modal -->
+    <div id="formModal" class="modal hidden">
+
+        <div class="modal-content form-modal">
+
+            <button id="closeFormModal" class="close-btn">
+                ×
+            </button>
+
+            <h2 id="formTitle">
+                Add New User
+            </h2>
+
+            <form id="userForm">
+
+                <input type="hidden" id="editUserId">
+
+                <div class="form-group">
+                    <label>Name</label>
+
+                    <input
+                        type="text"
+                        id="userName"
+                        required
+                        placeholder="Enter name"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="userEmail"
+                        required
+                        placeholder="Enter email"
+                    >
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>Department</label>
+
+                        <input
+                            type="text"
+                            id="userDepartment"
+                            required
+                            placeholder="e.g. IT"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Role</label>
+
+                        <input
+                            type="text"
+                            id="userRole"
+                            required
+                            placeholder="e.g. Developer"
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>Status</label>
+
+                        <select id="userStatus">
+
+                            <option value="Active">
+                                Active
+                            </option>
+
+                            <option value="Inactive">
+                                Inactive
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Location</label>
+
+                        <input
+                            type="text"
+                            id="userLocation"
+                            required
+                            placeholder="e.g. Karachi"
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label>Join Date</label>
+
+                    <input
+                        type="date"
+                        id="userJoinDate"
+                        required
+                    >
+                </div>
+
+
+                <button type="submit" class="primary-btn full-btn">
+                    Save User
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- User Details Modal -->
+    <div id="userModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <button id="closeModal" class="close-btn">
+                ×
+            </button>
+
+
+            <div
+                class="modal-avatar"
+                id="modalAvatar"
+            >
+                HA
+            </div>
+
+
+            <h2 id="modalName">
+                User Name
+            </h2>
+
+
+            <p id="modalRole">
+                User Role
+            </p>
+
+
+            <div class="modal-details">
+
+                <div>
+                    <span>Email</span>
+                    <strong id="modalEmail">-</strong>
+                </div>
+
+
+                <div>
+                    <span>Department</span>
+                    <strong id="modalDepartment">-</strong>
+                </div>
+
+
+                <div>
+                    <span>Status</span>
+                    <strong id="modalStatus">-</strong>
+                </div>
+
+
+                <div>
+                    <span>Location</span>
+                    <strong id="modalLocation">-</strong>
+                </div>
+
+
+                <div>
+                    <span>Join Date</span>
+                    <strong id="modalJoinDate">-</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

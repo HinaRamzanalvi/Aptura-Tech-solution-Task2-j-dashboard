@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Hina Alvi",
+    "email": "hina@example.com",
+    "department": "Web Development",
+    "role": "Frontend Developer",
+    "status": "Active",
+    "location": "Karachi",
+    "joinDate": "2026-08-01"
+  },
+  {
+    "id": 2,
+    "name": "Ali Ahmed",
+    "email": "ali@example.com",
+    "department": "Artificial Intelligence",
+    "role": "AI Developer",
+    "status": "Active",
+    "location": "Lahore",
+    "joinDate": "2026-07-15"
+  },
+  {
+    "id": 3,
+    "name": "Sara Khan",
+    "email": "sara@example.com",
+    "department": "UI/UX Design",
+    "role": "UI/UX Designer",
+    "status": "Inactive",
+    "location": "Islamabad",
+    "joinDate": "2026-06-20"
+  },
+  {
+    "id": 4,
+    "name": "Usman Tariq",
+    "email": "usman@example.com",
+    "department": "Web Development",
+    "role": "Backend Developer",
+    "status": "Active",
+    "location": "Karachi",
+    "joinDate": "2026-08-10"
+  },
+  {
+    "id": 5,
+    "name": "Ayesha Malik",
+    "email": "ayesha@example.com",
+    "department": "Digital Marketing",
+    "role": "Marketing Specialist",
+    "status": "Active",
+    "location": "Lahore",
+    "joinDate": "2026-07-05"
+  },
+  {
+    "id": 6,
+    "name": "Hamza Raza",
+    "email": "hamza@example.com",
+    "department": "Artificial Intelligence",
+    "role": "Machine Learning Engineer",
+    "status": "Inactive",
+    "location": "Rawalpindi",
+    "joinDate": "2026-05-18"
+  },
+  {
+    "id": 7,
+    "name": "Maham Shah",
+    "email": "maham@example.com",
+    "department": "UI/UX Design",
+    "role": "Product Designer",
+    "status": "Active",
+    "location": "Islamabad",
+    "joinDate": "2026-08-22"
+  },
+  {
+    "id": 8,
+    "name": "Bilal Hassan",
+    "email": "bilal@example.com",
+    "department": "Web Development",
+    "role": "Full Stack Developer",
+    "status": "Active",
+    "location": "Karachi",
+    "joinDate": "2026-07-28"
+  }
+]
